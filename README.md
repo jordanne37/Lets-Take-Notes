@@ -1,5 +1,6 @@
-# Note Taker
+# My Fav Note Taker
 
-## Your Task
+## Description
+An app that can add and save notes!
 
 
