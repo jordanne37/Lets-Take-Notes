@@ -1,27 +1,24 @@
-const PORT = process.env.PORT || 3001;
 
 const fs = require("fs");
 const path = require("path");
-
 const express = require("express");
 const app = express();
+// const noteCreate = require("./db/db.json");
 
-const noteCreate = require("./Develop/db/db.json");
+const PORT = process.env.PORT || 3001;
 
-app.get("/api/notes", (req, res) => {
-    res.json(noteCreate)
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
-});
+const apiRoutes = require("./routes/index.js");
+app.use(apiRoutes);
+const htmlRoutes = require("./routes/index.js");
+app.use(htmlRoutes);
+app.listen(PORT, () => console.log("HELLO WORLD"));
 
-app.get("/notes", (req, res) => {
-    res.sendFile(path.join(__dirname, "./Develop/public/notes.html"));
-});
 
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
-});
+// app.get("/api/notes", (req, res) => {
+//     res.json(noteCreate)
+// });
 
-function makeNewNote()
